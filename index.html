@@ -1,21 +1,118 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>11aproba</title>
-  <style>
-    body
-    {
-      background-color:red;
-      text-align:center;
-    }
-  </style>
+        <style>
+            .szamologep {
+                width: 300px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background-color: #c4bebe;
+            }
+    
+            button{
+                width: 62px;
+                height: 50px;
+                font-size: 18px;
+                margin: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #e0e0e0;
+                cursor: pointer;
+            }
+    
+            .szamologep input[type="text"] {
+                width: 96%;
+                height: 40px;
+                font-size: 20px;
+                text-align: right;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 5px;
+                background-color: #f0e7e7;
+            }
+            .szamologep input[type="reset"] {
+                width: 62px;
+                height: 50px;
+                font-size: 18px;
+                margin: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #e0e0e0;
+                cursor: pointer;
+            }
+        </style>
 </head>
 <body>
-  <h1>Ide kérem az elérhetőségeket</h1>
-  <h2>Csak GitHub-os lapok!</h2>
-  <ul>
-    <li>
-      Ide év és link kerüljön!
-    </li>
-  </ul>
+    <div class="szamologep">
+        <input type="text" id="eredmeny" disabled>
+        <button onclick="szam('1')">1</button>
+        <button onclick="szam('2')">2</button>
+        <button onclick="szam('3')">3</button>
+        <button onclick="muvelet('+')">+</button>
+        <button onclick="szam('4')">4</button>
+        <button onclick="szam('5')">5</button>
+        <button onclick="szam('6')">6</button>
+        <button onclick="muvelet('-')">-</button>
+        <button onclick="szam('7')">7</button>
+        <button onclick="szam('8')">8</button>
+        <button onclick="szam('9')">9</button>
+        <button onclick="muvelet('*')">*</button>
+        <button onclick="szam('0')">0</button>
+        <button onclick="szamolas()">=</button>
+        <button onclick="muvelet('/')">/</button>
+        <button onclick="torles()">C</button>
+    </div>
+
+    <script>
+        let eredmeny = document.getElementById('eredmeny');
+        let aktualisSzam = '';
+        let muveletiJel = null;
+        let elozoSzam = null;
+
+        function szam(szam) {
+            aktualisSzam += szam;
+            eredmeny.value = aktualisSzam;
+        }
+
+        function muvelet(jel) {
+            if (muveletiJel !== null) szamolas();
+            muveletiJel = jel;
+            elozoSzam = parseFloat(aktualisSzam);
+            aktualisSzam = '';
+        }
+
+        function szamolas() {
+            if (muveletiJel !== null) {
+                let eredmenySzam;
+                switch (muveletiJel) {
+                    case '+':
+                        eredmenySzam = elozoSzam + parseFloat(aktualisSzam);
+                        break;
+                    case '-':
+                        eredmenySzam = elozoSzam - parseFloat(aktualisSzam);
+                        break;
+                    case '*':
+                        eredmenySzam = elozoSzam * parseFloat(aktualisSzam);
+                        break;
+                    case '/':
+                        eredmenySzam = elozoSzam / parseFloat(aktualisSzam);
+                        break;
+                }
+                eredmeny.value = eredmenySzam;
+                aktualisSzam = '' + eredmenySzam;
+                muveletiJel = null;
+            }
+        }
+
+        function torles() {
+            aktualisSzam = '';
+            muveletiJel = null;
+            elozoSzam = null;
+            eredmeny.value = '';
+        }
+    </script>
 </body>
 </html>
